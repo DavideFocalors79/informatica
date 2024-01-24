@@ -5,7 +5,7 @@ inseriti in un vettore e stamparlo a schermo
 */
 
 import java.util.Random;    //libreria per funzione random
-public class Bego_3E_Es010_Ludopatia
+public class Laghi_3E_Es13_Lotto
 {
     public static void main(String[] args)
     {
