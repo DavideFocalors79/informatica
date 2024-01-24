@@ -12,10 +12,12 @@ public class laghi_3E_Es14_GaraDadi { //definizione classe
     
     {
         //dichiarazione variabili
+        int i=0,numdadi;
         int dado1=0, dado2=0, caso=0;
         int scelta = 0;
         int valoreFaccia=0;
         int faccia = 0;;
+        int somma1=0,somma2=0;
 
 
         boolean exit = true;
@@ -30,37 +32,63 @@ public class laghi_3E_Es14_GaraDadi { //definizione classe
 
             switch (scelta) { // swich case con la scelta
                 case 1:
-                    {
+                {
+                    System.out.println("inserire il numero di dadi da lanciare ");
+                    numdadi = scanner.nextInt();// lettura dei dadi da tirare
+
                     caso=1;
                     System.out.printf("Estrazione dadi...\n");
                     Wait(1000);
-                    dado1 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
-                    System.out.println("Giocatore 1 ha estratto: " +dado1);
-                    FacceDadi(dado1);
-                    Wait(1000);
-                    dado2 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
-                    System.out.println("Giocatore 2 ha estratto: " +dado2);
-                    FacceDadi(dado2);
-                    Vincitore(dado1, dado2, caso); // richiamo metodo per dire chi ha vinto
-                    Wait(2000);
-                    break;
+                    for(i=numdadi;i>0;i--){//ciclo per tirare più di un dado
+                        dado1 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
+                        System.out.println("Giocatore 1 ha estratto: " +dado1);
+                        FacceDadi(dado1);
+                        Wait(1000);
+                        somma1=somma1+dado1;//somma del punteggio dei dadi
                     }
+                    System.out.printf("Giocatore 1 Somma: \n"+somma1);
+                    for(i = numdadi;i>0;i--) {
+                        dado2 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
+                        System.out.println("Giocatore 2 ha estratto: " + dado2);
+                        FacceDadi(dado2);
+                        Wait(1000);
+                        somma2=somma2+dado2;
+                    }
+                    System.out.printf("Giocatore 2 Somma: \n"+somma2);
+                        Vincitore(somma1, somma2, caso); // richiamo metodo per dire chi ha vinto
+                        Wait(2000);
+
+                    break;
+                }
                 case 2:
-                    {
+                {
+                    System.out.println("inserire il numero di dadi da lanciare ");
+                    numdadi = scanner.nextInt();
+
                     caso=2;
                     System.out.printf("Estrazione dadi...\n");
                     Wait(1000);
-                    dado1 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
-                    System.out.println("Giocatore 1 ha estratto: " +dado1);
-                    FacceDadi(dado1);
-                    Wait(1000);
-                    dado2 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
-                    System.out.println("Il computer ha estratto: " +dado2);
-                    FacceDadi(dado2);
-                    Vincitore(dado1, dado2, caso); // richiamo metodo per dire chi ha vinto
-                    Wait(2000);
-                    break;
+                    for(i=numdadi;i>0;i--){
+                        dado1 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
+                        System.out.println("Giocatore 1 ha estratto: " +dado1);
+                        FacceDadi(dado1);
+                        Wait(1000);
+                        somma1=somma1+dado1;
                     }
+                    System.out.printf("Giocatore 1 Somma: ",somma1);
+                    for(i = numdadi;i>0;i--) {
+                        dado2 = estraiDado(); // richiamo metodo estraiDado per attribuire il valore alla variabile
+                        System.out.println("il computer ha estratto: " + dado2);
+                        FacceDadi(dado2);
+                        Wait(1000);
+                        somma2=somma2+dado2;
+                    }
+                    System.out.printf("Computer Somma: ",somma2);
+                    Vincitore(somma1, somma2, caso); // richiamo metodo per dire chi ha vinto
+                    Wait(2000);
+
+                    break;
+                }
                 case 3:
                 {
                 System.out.println("Uscita "); // comunicare l'uscita dal ciclo
@@ -95,6 +123,7 @@ public class laghi_3E_Es14_GaraDadi { //definizione classe
         System.out.println("[1]-Sfida tra due giocatori");
         System.out.println("[2] Sfida contro il computer");
         System.out.println("[3] Exit ");
+
     }
     
     private static void ClrScr(){ // metodo per cancellare lo schermo
@@ -105,13 +134,13 @@ public class laghi_3E_Es14_GaraDadi { //definizione classe
         }
     }
    
-   private static void Vincitore(int dado1, int dado2, int caso) //metodo estrarre vincitore
+   private static void Vincitore(int somma1, int somma2, int caso) //metodo estrarre vincitore
     {
 
-    if (dado1>dado2) 
+    if (somma1>somma2)
 		System.out.println("\nHa vinto il G1");
 		
-		else if (dado1==dado2)
+		else if (somma1==somma2)
 		System.out.println("\nPareggio");
 		
 		else  
@@ -134,6 +163,7 @@ public class laghi_3E_Es14_GaraDadi { //definizione classe
             e.printStackTrace();
         }
     }
+
 
     private static void FacceDadi(int faccia){
 
