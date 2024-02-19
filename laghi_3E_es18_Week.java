@@ -5,28 +5,33 @@
  o dispari sapendo che il lunedi è dispari.
  *******************************************************************************/
 //importazione librerie
+import java.util.Scanner;
 
 public class laghi_3E_es18_Week
 {
     public static void main (String[]args)
     {
-        String[] settimana = {"Lunedi", "Martedi", "Mercoledi", "Giovedi", "Venerdi", "Sabato", "Domenica"};
+        Scanner tastiera = new Scanner (System.in);
+        String[] settimana = new String[7];
+        for(int i=0;i< settimana.length;i++) {
+            settimana[i] = tastiera.next();
+        }
         Show(settimana);
+
     }
 
     private static void Show(String[] settimana){
-        int dispar=0;;
+
         for(int i=0;i< settimana.length;i++){
+
             System.out.println(settimana[i]+" e': ");
-            switch(dispar){
-                case(0):{
+            switch(settimana[i]){
+                case "Lunedi","Mercoledi","Venerdi","Domenica":{
                     System.out.println("dispari");
-                    dispar=1;
                 }
                 break;
-                case(1):{
+                case "Martedi","Giovedi","Sabato":{
                     System.out.println("pari");
-                    dispar=0;
                 }
                 break;
             }
