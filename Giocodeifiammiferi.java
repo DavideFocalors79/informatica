@@ -6,12 +6,10 @@ public class Giocodeifiammiferi {
     public static void main(String[] Args){
         Scanner scanner=new Scanner(System.in);
         int giocatoreUno=0, giocatoreDue=0, fiammiferi=21;
-        int gUno=0, gDue=0;
-        int scelta;
+        int scelta,temp=0;
         String [] opzioni = {"=== Gioco Fiammiferi === ", "[1]-Sfida tra due giocatori", "[2] Sfida contro il computer", "[3] Il computer vince sempre ", "[4] Exit "};
         String [] sFiamm={"|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|","|",};
         String [] tFiamm={"*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*","*"};
-        String errore="errore!!! il numero supera 3\n";
 
         System.out.println(Menu(opzioni, scanner));
         scelta = Menu(opzioni,scanner);
@@ -19,55 +17,93 @@ public class Giocodeifiammiferi {
             case 1: {
                 System.out.println("Inizia il giocatore 1\n");
                 Wait(200);
-                ClrScr();
-                System.out.println("* * * * * * * * * * * * * * * * * * * * *\n");
-                System.out.println("| | | | | | | | | | | | | | | | | | | | |\n");
-                System.out.println("\n");
+
+                System.out.println(tFiamm);
+                System.out.println(sFiamm+"\n");
+
                 do {
-                    System.out.println("Inserisce i fammiferi il Giocatore 1\n");
+
                     fiammiferi = sceltaFiammiferi(scanner, giocatoreUno, fiammiferi, 1);
-                    if (fiammiferi >= 0) {
-                        System.out.println("Fiammiferi rimanenti:" + fiammiferi + "\n");
-                        System.out.println("Inserisce i fammiferi il Giocatore 2\n");
+                    if (fiammiferi > 0) {
+
+                        stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+
                         fiammiferi = sceltaFiammiferi(scanner, giocatoreDue, fiammiferi, 2);
-                        System.out.println("Fiammiferi rimanenti:" + fiammiferi + "\n");
+
+                        if(fiammiferi>0){
+                            stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+                        }
+
                     }
-                } while (fiammiferi >= 0);
+                } while (fiammiferi > 0);
                 break;
             }
             case 2:
                 System.out.println("Inizia il giocatore 1\n");
                 Wait(200);
-                ClrScr();
-                System.out.println("* * * * * * * * * * * * * * * * * * * * *\n");
-                System.out.println("| | | | | | | | | | | | | | | | | | | | |\n");
-                System.out.println("\n");
+
+                System.out.println(tFiamm);
+                System.out.println(sFiamm+"\n");
+
                 do{
-                    System.out.println("Inserisce i fammiferi il Giocatore 1\n");
+
                     fiammiferi=sceltaFiammiferi(scanner,giocatoreUno,fiammiferi,1);
-                    if(fiammiferi>=0){
-                        System.out.println("Fiammiferi rimanenti:"+fiammiferi+"\n");
-                        System.out.println("Inserisce i fammiferi il computer\n");
-                        fiammiferi=numRand();
-                        System.out.println("Fiammiferi rimanenti:"+fiammiferi+"\n");
+
+                    if(fiammiferi>0){
+
+                        stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+
+                        System.out.println("\nInserisce i fammiferi il computer\n");
+
+                        temp=numRand();
+
+                        System.out.println("\nnumero inserito dal computer: "+temp);
+
+                        fiammiferi=fiammiferi-temp;
+
+                        if(fiammiferi>0){
+
+                            stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+
+                        }else{
+
+                            System.out.println("Il PC ha vinto\n");
+
+                        }
                     }
-                }while(fiammiferi>=0);
+                }while(fiammiferi>0);
                 break;
             case 3:
+
+                System.out.println("Inizia il giocatore 1\n");
+                Wait(200);
+
+                System.out.println(tFiamm);
+                System.out.println(sFiamm+"\n");
+
+
+                do{
+
+                    fiammiferi=sceltaFiammiferi(scanner,giocatoreUno,fiammiferi,1);
+
+                    stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+
+                    System.out.println("\nInserisce il computer\n");
+
+                    fiammiferi=fiammiferi-fiammiferiPcAlwaysWin(fiammiferi);
+
+                    stampaFiammiferi(fiammiferi,sFiamm,tFiamm);
+
+                }while(fiammiferi>0);
                 break;
 
+            case 4:
+                System.out.println("Uscita in corso...");
+                Wait(1000);
+                break;
         }
 
-
     }
-    public static void ClrScr(){
-        try {
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void Wait(int attesa) {
         try{
             Thread.sleep(attesa);
@@ -81,7 +117,7 @@ public class Giocodeifiammiferi {
         int scelta;
 
         do {
-            ClrScr();
+
             System.out.println("------------------");
             System.out.println(opzioni[0]);
             System.out.println("------------------");
@@ -97,19 +133,23 @@ public class Giocodeifiammiferi {
                 Wait(2000);
             }
         }
-        while ((scelta < 1 ) || (scelta > opzioni.length -1 ));
+        while (scelta < 1  || scelta > opzioni.length -1 );
 
         return scelta;
     }
 
     private static int sceltaFiammiferi(Scanner scanner,int giocatore,int fiammiferi,int giocatori){
-        giocatore = scanner.nextInt();
-        try {
-            if (giocatore > 3)
-                System.out.println("errore");
-        } catch (Exception x) {
-            giocatore = 3;
-        }
+
+        do{
+            System.out.println("\nInserisce i fammiferi il Giocatore "+giocatori);
+
+            giocatore = scanner.nextInt();
+
+            if (giocatore<1||giocatore>3){
+                System.out.println("errore inserisci un valore valido");
+            }
+        }while(giocatore<1||giocatore>3);
+
         fiammiferi = fiammiferi-giocatore;
         if (fiammiferi<=0){
             System.out.println("il giocatore "+giocatori+" ha vinto\n");
@@ -121,12 +161,37 @@ public class Giocodeifiammiferi {
     private static int numRand() {
 
         Random num = new Random();
-        System.out.println(num);
-        return num.nextInt(1,3);
+        return num.nextInt(1,4);
 
     }
-    private static void stampaFiammiferi(int fiammiferi){
 
+    private static int fiammiferiPcAlwaysWin(int fiammiferiRimanenti) {
+        //controlla se il numero di fiammiferi rimasti -1 o -5 o -9 è divisibile per 4, per vincere sempre non lasciando all'altro l'opportunita di prendere gli ultimi 3
+        if ((fiammiferiRimanenti - 1) % 4 == 0 || (fiammiferiRimanenti - 5) % 4 == 0 || (fiammiferiRimanenti - 9) % 4 == 0) {
+            return 1;
+        }
+        //controlla se il numero di fiammiferi rimasti -2 o -6 o -10 è divisibile per 4, per vincere sempre non lasciando all'altro l'opportunita di prendere gli ultimi 3
+        else if ((fiammiferiRimanenti - 2) % 4 == 0 || (fiammiferiRimanenti - 6) % 4 == 0 || (fiammiferiRimanenti - 10) % 4 == 0) {
+            return 2;
+        }
+        //in qualsiasi altro caso prenderne 3
+        else {
+            if(fiammiferiRimanenti<=0){
+                System.out.println("il PC ha vinto\n");
+            }
+            return 3;
+        }
+
+    }
+    private static void stampaFiammiferi(int fiammiferi,String [] sFiamm,String [] tFiamm){
+        System.out.println("Fiammiferi rimanenti:"+fiammiferi+"\n");
+        for(int i=0;i<fiammiferi;i++){
+            System.out.printf(tFiamm[i]);
+        }
+        System.out.printf("\n");
+        for(int i=0;i<fiammiferi;i++){
+            System.out.printf(sFiamm[i]);
+        }
     }
 
 }
