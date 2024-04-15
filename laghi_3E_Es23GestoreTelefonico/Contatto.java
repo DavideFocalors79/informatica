@@ -8,6 +8,6 @@ public class Contatto {
 
     public String stampa()
     {
-        return String.format("Nome: %s Cognome: %s Telefono: %s, tipo: %s", nome, cognome, telefono, tipo.toString());
+        return String.format("Nome: %s \tCognome: %s \nTelefono: %s, \ttipo: %s\n", nome, cognome, telefono, tipo.toString());
     }
 }
